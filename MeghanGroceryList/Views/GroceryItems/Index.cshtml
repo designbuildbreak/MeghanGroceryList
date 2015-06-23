@@ -1,0 +1,74 @@
+﻿@model IEnumerable<MeghanGroceryList.Models.GroceryItem>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Meghan's Grocery List</h2>
+
+<div id="grocery-input-container" style="padding-bottom: 1em; padding-top: 1em;">
+    
+    @using (Html.BeginForm("Create", "GroceryItems"))
+    {
+        @Html.AntiForgeryToken()
+        <span class="form-actions no-color">
+            @Html.TextBox("Item", null, new { @class = "form-control", @placeholder = "Enter Item Here" })<br />
+            <input type="submit" value="Add To List" class="btn btn-primary"/>
+        </span>
+    }
+</div>
+
+<table class="table">
+    @foreach (var item in Model)
+    {
+        if (item.GotIt == false)
+        {
+            <tr id="grocery-item-row">                 
+                <td>
+                    <b>@Html.DisplayFor(modelItem => item.Item)</b>
+                </td>                
+                @using (Html.BeginForm("GotIt", "GroceryItems", new { id = item.ID }))
+                {
+                    <td>
+                        @Html.AntiForgeryToken()
+                        <input type="submit" id="got-it-button" value="Got It!" class="btn btn-warning" />
+                    </td>
+                }
+                @using (Html.BeginForm("Delete", "GroceryItems", new { id = item.ID }))
+                {
+                    <td>
+                        @Html.AntiForgeryToken()
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                    </td>
+                }
+            </tr>
+        }
+    }
+    
+    @foreach (var item in Model)
+    {
+        if (item.GotIt == true)
+        {
+            <tr id="grocery-item-row">
+                <td>
+                    <font color="#B6B6B4">@Html.DisplayFor(modelItem => item.Item)</font>
+                </td>
+                @using (Html.BeginForm("GotIt", "GroceryItems", new { id = item.ID }))
+                { 
+                    <td>
+                        @Html.AntiForgeryToken()
+                        <input type="submit" id="got-it-button" value="Get It!" class="btn btn-success" />
+                    </td>
+                }
+                @using (Html.BeginForm("Delete", "GroceryItems", new { id = item.ID }))
+                { 
+                    <td>
+                        @Html.AntiForgeryToken()
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                    </td>
+                }
+            </tr>
+        }
+    }
+</table>
+
