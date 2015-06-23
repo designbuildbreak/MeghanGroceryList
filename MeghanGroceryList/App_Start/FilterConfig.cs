@@ -8,10 +8,10 @@ namespace MeghanGroceryList
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            bool basicAuthenticationEnabled = true;
+            //bool basicAuthenticationEnabled = true;
 
-            if (basicAuthenticationEnabled)
-                filters.Add(new BasicAuthenticationAttribute());
+            //if (basicAuthenticationEnabled)
+            //    filters.Add(new BasicAuthenticationAttribute());
 
             filters.Add(new HandleErrorAttribute());
         }
